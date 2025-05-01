@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "vadiole.bluetoothtile"
         minSdk = 31
-        targetSdk = 35
+        targetSdk = 32
         versionCode = 1
         versionName = "1.0"
         setProperty("archivesBaseName", "BluetoothTile-v$versionName")

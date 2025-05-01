@@ -3,11 +3,15 @@ package vadiole.bluetoothtile
 import android.app.Activity
 import android.app.StatusBarManager
 import android.content.ComponentName
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.Icon
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.TypedValue
 import android.view.Gravity
 import android.widget.FrameLayout
@@ -45,6 +49,14 @@ class HomeActivity : Activity(), Density {
             }
         )
 
+        if (checkSelfPermission(android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(android.Manifest.permission.BLUETOOTH_CONNECT), 0)
+        }
+
+        addBluetoothTileMaybe()
+    }
+
+    private fun addBluetoothTileMaybe() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             val statusBarManager = getSystemService(StatusBarManager::class.java)
             statusBarManager.requestAddTileService(
@@ -67,6 +79,22 @@ class HomeActivity : Activity(), Density {
         if (hasFocus) {
             updateSystemBars(resources.configuration)
         }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (checkSelfPermission(android.Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED) {
+            addBluetoothTileMaybe()
+            return
+        }
+
+        if (shouldShowRequestPermissionRationale(android.Manifest.permission.BLUETOOTH_CONNECT)) {
+            requestPermissions(arrayOf(android.Manifest.permission.BLUETOOTH_CONNECT), 0)
+            return
+        }
+
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        intent.data = Uri.fromParts("package", packageName, null)
+        startActivity(intent)
     }
 
     private fun updateSystemBars(configuration: Configuration) {
