@@ -45,7 +45,7 @@ class HomeActivity : Activity(), Density {
                 gravity = Gravity.CENTER
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, 14f.sp)
                 setTextColor(Color.GRAY)
-                text = "BluetoothTile by vadiole"
+                text = "Grant Nearby devices permission to enable Bluetooth Tile"
             }
         )
 
