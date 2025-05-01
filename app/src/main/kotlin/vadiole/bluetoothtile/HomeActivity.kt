@@ -51,9 +51,9 @@ class HomeActivity : Activity(), Density {
 
         if (checkSelfPermission(android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(android.Manifest.permission.BLUETOOTH_CONNECT), 0)
+        } else {
+            addBluetoothTileMaybe()
         }
-
-        addBluetoothTileMaybe()
     }
 
     private fun addBluetoothTileMaybe() {
