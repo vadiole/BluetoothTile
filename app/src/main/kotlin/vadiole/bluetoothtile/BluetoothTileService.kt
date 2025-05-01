@@ -11,6 +11,7 @@ import android.service.quicksettings.TileService
 
 class BluetoothTileService : TileService() {
 
+    @Suppress("DEPRECATION")
     private val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
     override fun onStartListening() {
@@ -58,8 +59,10 @@ class BluetoothTileService : TileService() {
         tile.state = newState
         tile.updateTile()
         if (newState == Tile.STATE_ACTIVE) {
+            @Suppress("DEPRECATION")
             bluetoothAdapter.enable()
         } else {
+            @Suppress("DEPRECATION")
             bluetoothAdapter.disable()
         }
     }

@@ -10,6 +10,7 @@ android {
     defaultConfig {
         applicationId = "vadiole.bluetoothtile"
         minSdk = 31
+        //noinspection ExpiredTargetSdkVersion: controlling bluetooth is not supported after API 32
         targetSdk = 32
         versionCode = 1
         versionName = "1.0"
