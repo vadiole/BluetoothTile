@@ -1,8 +1,12 @@
 package vadiole.bluetoothtile
 
 import android.app.Activity
+import android.app.StatusBarManager
+import android.content.ComponentName
 import android.content.res.Configuration
 import android.graphics.Color
+import android.graphics.drawable.Icon
+import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.Gravity
@@ -13,6 +17,8 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowCompat.setDecorFitsSystemWindows
 import androidx.core.view.WindowInsetsCompat.Type.navigationBars
 import androidx.core.view.WindowInsetsCompat.Type.statusBars
+import java.util.concurrent.Executor
+import java.util.function.Consumer
 import vadiole.bluetoothtile.ui.Density
 import vadiole.bluetoothtile.ui.matchParent
 
@@ -38,6 +44,17 @@ class HomeActivity : Activity(), Density {
                 text = "BluetoothTile by vadiole"
             }
         )
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val statusBarManager = getSystemService(StatusBarManager::class.java)
+            statusBarManager.requestAddTileService(
+                ComponentName(this, BluetoothTileService::class.java),
+                getString(R.string.bluetooth_tile_label),
+                Icon.createWithResource(this, R.drawable.ic_bluetooth_24px),
+                Executor { },
+                Consumer { }
+            )
+        }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
