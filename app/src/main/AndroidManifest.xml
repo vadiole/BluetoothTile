@@ -27,6 +27,20 @@
 
         </activity>
 
+        <activity
+            android:name=".SettingsStarterActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:theme="@style/Theme.BluetoothTile.SettingsStarter">
+
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
+            </intent-filter>
+
+        </activity>
+
         <service
             android:name=".BluetoothTileService"
             android:exported="true"
